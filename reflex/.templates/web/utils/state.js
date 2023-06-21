@@ -116,12 +116,21 @@ export const applyEvent = async (event, router, socket) => {
   if (event.name == "_set_cookie") {
     const cookies = new Cookies();
     cookies.set(event.payload.key, event.payload.value);
-    localStorage.setItem(event.payload.key, event.payload.value);
     return false;
   }
 
   if (event.name == "_set_local_storage") {
     localStorage.setItem(event.payload.key, event.payload.value);
+    return false;
+  }
+
+  if (event.name == "_clear_local_storage") {
+    localStorage.clear();
+    return false;
+  }
+
+  if (event.name == "_remove_local_storage") {
+    localStorage.removeItem(event.payload.key);
     return false;
   }
 
